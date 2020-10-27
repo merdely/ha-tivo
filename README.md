@@ -48,7 +48,7 @@ dialogflow:
 
 google_assistant: !include google_assistant.yaml
 ...
-shell_command: !include [shell_commands.yaml](https://github.com/merdely/ha-tivo/blob/main/homeassistant/shell_commands.yaml)
+shell_command: !include <a href=https://github.com/merdely/ha-tivo/blob/main/homeassistant/shell_commands.yaml>shell_commands.yaml</a>
 intent_script: !include [intent_scripts.yaml](https://github.com/merdely/ha-tivo/blob/main/homeassistant/intent_scripts.yaml)
 ...
 ```
