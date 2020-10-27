@@ -89,8 +89,27 @@ intent_script: !include <a href="homeassistant/intent_scripts.yaml">intent_scrip
         - 'to channel 504 on God Damn Tivo'
         - 'Change God Damn Tivo to channel 504'
      1. Select "channel 504"; a popup should let you assign it to an Entity, choose @channel
+        - This tells DialogFlow that "channel 504" is a variable associated with @channel
      1. Select "God Damn Tivo"; a popup should let you assign it to an Entity, choose @tv_device
-     1. Enter 'ChangeTivoChannel' as Action Name and add entries for @channel, @channel, $channel with a prompt of "To which Channel?" and @tv_device, @tv_device, $tv_device with a prompt of "Which Tivo?"
+        - This tells DialogFlow that "God Damn Tivo" is a variable associated with @tv_device
+     1. Enter 'ChangeTivoChannel' as Action Name (this connects this Intent to the intent_script in Home Assistant) and add entries for @channel, @channel, $channel with a prompt of "To which Channel?" and @tv_device, @tv_device, $tv_device with a prompt of "Which Tivo?"
      1. Under Responses, enter "Channel changed", check "Set this intent as end of conversation", select Google Assistant and check 'Use responses from the DEFAULT tab as the first responses'.
      1. Under Fulfillment, check 'Enter webhook call for this intent'
      1. Click Save
+   - LiveTVTivo
+     1. Add Training Phrases: 'press Live TV Button on God Damn Tivo', 'press the Live TV Button on God Damn Tivo', 'press Live TV on God Damn Tivo' and any other combinations you may use to tell it to press Live TV.
+     1. Add LiveTVTivo as the Action Name.
+     1. Add @tv_device, @tv_device, $tv_device, "Which Tivo?" as a parameter.
+     1. Under Responses, add a response like "Sending Live TV" and along with the other settings similar to ChangeTivoChannel
+   - Do the same for "PauseTivo", "PlayTivo", "RecordTivo", and "TivoButtonTivo" (matching the right Action Name to the intent_script in Home Assistant)
+1. Click 'Integrations'
+   1. Under 'Google Assistant', click 'Integration Settings'.
+   1. Under 'Explicit invotation', enter one of your Intents that you want to be the "default intent".  I chose 'ChangeTivoChannel'.
+   1. Click 'Manage Assistant App'. This opens Google Actions Console
+      - Under Quick Setup, give a display name to the Invocation.  This is how you invoke your app: "Hey, Google, tell 'My App Name' to change the God Damn Tivo to channel 504".  There are restrictions on what you can use (more than 1 word, can't use articles like the/an/a as one of the words, ...).  One example is 'Channel Fairy'.
+      - Click the Test heading to enable test-mode.
+      - I believe the Action is already set up due to setting up the integration from DialogFlow.
+      - That may be everything that needs to be done with the Actions Console... I can't remember.
+
+Now test your integration with: 'Hey Google, tell Channel Fair to press the Live TV button on My Main Tivo'
+      
