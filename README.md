@@ -30,8 +30,25 @@ Restart=always
 ExecStartPre=-/usr/bin/docker rm -f homeassistant
 # This takes too long, so it's commented out and I do it manually every so often
 # ExecStartPre=-/usr/bin/docker pull homeassistant/aarch64-homeassistant:latest
-ExecStart=/usr/bin/docker run --rm --name="homeassistant" --net=host -v /srv/docker/homeassistant:/config -v /etc/localtime:/etc/localtime:ro homeassistant/aarch64-homeassistant:latest
+ExecStart=/usr/bin/docker run --rm --name="homeassistant" --net=host \
+  -v /srv/docker/homeassistant:/config -v /etc/localtime:/etc/localtime:ro \
+  homeassistant/aarch64-homeassistant:latest
 
 [Install]
 WantedBy=multi-user.target
+```
+
+### My Home Assistant Configuration file
+```
+...
+tts:
+  - platform: google_translate
+
+dialogflow:
+
+google_assistant: !include google_assistant.yaml
+...
+shell_command: !include [shell_commands.yaml](https://github.com/merdely/ha-tivo/blob/main/homeassistant/shell_commands.yaml)
+intent_script: !include [intent_scripts.yaml](https://github.com/merdely/ha-tivo/blob/main/homeassistant/intent_scripts.yaml)
+...
 ```
