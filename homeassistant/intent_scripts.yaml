@@ -1,0 +1,50 @@
+ChangeTivoChannel:
+  speech:
+    text: 'Changing channel on {{ tv_device }} to {{ channel }}'
+  action:
+    - service: shell_command.change_channel
+      data_template:
+        tv_device: "{{ tv_device }}"
+        channel: "{{ channel }}"
+PauseTivo:
+  speech:
+    text: 'Pausing TiVo on {{ tv_device }}'
+  action:
+    - service: shell_command.pause_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"
+PlayTivo:
+  speech:
+    text: 'Playing TiVo on {{ tv_device }}'
+  action:
+    - service: shell_command.play_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"
+EnterTivo:
+  speech:
+    text: 'Pressing Enter on {{ tv_device }}'
+  action:
+    - service: shell_command.play_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"
+RecordTivo:
+  speech:
+    text: 'Recording TiVo on {{ tv_device }}'
+  action:
+    - service: shell_command.record_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"
+LiveTVTivo:
+  speech:
+    text: 'Pressing LiveTV on {{ tv_device }}'
+  action:
+    - service: shell_command.livetv_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"
+TivoButtonTivo:
+  speech:
+    text: 'Pressing Tivo Button on {{ tv_device }}'
+  action:
+    - service: shell_command.tivobutton_tivo
+      data_template:
+        tv_device: "{{ tv_device }}"

@@ -1,0 +1,7 @@
+change_channel: '/config/bin/tivo_setch {{ tv_device }} "{{ channel }}"'
+livetv_tivo: '/config/bin/tivo_livetv {{ tv_device }}'
+tivobutton_tivo: '/config/bin/tivo_tivobutton {{ tv_device }}'
+pause_tivo: '/config/bin/tivo_pause {{ tv_device }}'
+play_tivo: '/config/bin/tivo_play {{ tv_device }}'
+record_tivo: '/config/bin/tivo_record {{ tv_device }}'
+enter_tivo: '/config/bin/tivo_enter {{ tv_device }}'
