@@ -1,0 +1,155 @@
+#!/bin/sh
+
+[ -z "$2" ] && exit 1
+
+[ ! -e /usr/bin/telnet ] && /sbin/apk add -U -u busybox-extras
+
+tivo=$1
+channel=$(echo $2 | tr [A-Z] [a-z])
+
+case $channel in
+  "cw")
+    channel=503
+    ;;
+  "nbc")
+    channel=504
+    ;;
+  "fox")
+    channel=505
+    ;;
+  "my tv")
+    channel=506
+    ;;
+  "abc")
+    channel=507
+    ;;
+  "cbs")
+    channel=509
+    ;;
+  "usa")
+    channel=550
+    ;;
+  "tnt")
+    channel=551
+    ;;
+  "tbs")
+    channel=552
+    ;;
+  "fx")
+    channel=553
+    ;;
+  "wgn")
+    channel=568
+    ;;
+  "espn")
+    channel=570
+    ;;
+  "masn")
+    channel=577
+    ;;
+  "nfl network")
+    channel=588
+    ;;
+  "tennis channel")
+    channel=592
+    ;;
+  "cnn")
+    channel=600
+    ;;
+  "cnbc")
+    channel=602
+    ;;
+  "msnbc")
+    channel=603
+    ;;
+  "weather channel")
+    channel=611
+    ;;
+  "discovery channel")
+    channel=620
+    ;;
+  "national geographic")
+    channel=621
+    ;;
+  "animal planet")
+    channel=630
+    ;;
+  "tlc")
+    channel=639
+    ;;
+  "lifetime")
+    channel=640
+    ;;
+  "qvc")
+    channel=650
+    ;;
+  "food network")
+    channel=664
+    ;;
+  "hgtv")
+    channel=665
+    ;;
+  "syfy"|"sci-fi")
+    channel=680
+    ;;
+  "a n e"|"a and e")
+    channel=681
+    ;;
+  "trutv")
+    channel=683
+    ;;
+  "bravo")
+    channel=685
+    ;;
+  "ovation")
+    channel=688
+    ;;
+  "bbc america")
+    channel=689
+    ;;
+  "comedy central")
+    channel=690
+    ;;
+  "pop")
+    channel=694
+    ;;
+  "freeform")
+    channel=699
+    ;;
+  "mtv")
+    channel=710
+    ;;
+  "vh1")
+    channel=717
+    ;;
+  "amc")
+    channel=731
+    ;;
+  "ifc")
+    channel=734
+    ;;
+  "tv land")
+    channel=741
+    ;;
+  "nickelodeon"|"nick")
+    channel=752
+    ;;
+  "cartoon network")
+    channel=757
+    ;;
+  "disney channel")
+    channel=780
+    ;;
+  "hbo")
+    channel=899
+    ;;
+esac
+
+channel=$(echo $channel | sed 's/Channel //')
+
+{ echo IRCODE CLEAR; for f in $(echo $channel | sed -e 's/\(.\)/\1\n/g'); do
+  echo IRCODE NUM$f
+done; echo IRCODE ENTER; } | telnet "$tivo" 31339
+sleep 2
+
+date +"%b %e %H:%M:%S $(hostname -s) $(basename $0 .sh)[$$]: Setting $tivo to $channel (original input '$1' '$2')" >> /config/log/$(basename $0 .sh).log

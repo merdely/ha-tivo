@@ -1,0 +1,16 @@
+#!/bin/sh
+
+[ -z "$1" ] && exit 1
+
+[ ! -e /usr/bin/telnet ] && /sbin/apk add -U -u busybox-extras
+
+tivo=$1
+
+echo "IRCODE RECORD" | telnet "$tivo" 31339
+sleep 2
+echo "IRCODE SELECT" | telnet "$tivo" 31339
+sleep 2
+echo "IRCODE SELECT" | telnet "$tivo" 31339
+sleep 2
+
+date +"%b %e %H:%M:%S $(hostname -s) $(basename $0 .sh)[$$]: Executing on '$tivo'" >> /config/log/$(basename $0 .sh).log
